@@ -68,7 +68,7 @@ namespace Assets.Scripts.ChessBoardElement
                 if (chessBoard.TryGetPiece(to, out oponentPiece))
                     move.DefeatedPiece = oponentPiece;
 
-                CheckForNewQueen(playerPiece, to);
+                CheckForNewQueen(move);
             }
 
             bool selfCheck = false;
@@ -210,16 +210,17 @@ namespace Assets.Scripts.ChessBoardElement
         /// </summary>
         /// <param name="piece"></param>
         /// <param name="position"></param>
-        private void CheckForNewQueen(ChessPiece piece, BoardCoord position)
+        private void CheckForNewQueen(ChessMove move)
         {
-            if (piece == null)
+            if (move == null)
                 return;
 
-            int lastRow = piece.Color == chessRules.MainPlayerColor ? ChessBoard.BOARD_SIZE - 1 : 0;
-            if (piece.PieceType == ChessPieceType.Pawn && position.row == lastRow)
+            int lastRow = move.MovingPiece.Color == chessRules.MainPlayerColor ? ChessBoard.BOARD_SIZE - 1 : 0;
+            if (move.MovingPiece.PieceType == ChessPieceType.Pawn && move.To.row == lastRow)
             {
-                piece = new ChessPiece(ChessPieceType.Queen, piece.Color);
-                chessBoard.PutPiece(piece, position);
+                ChessPiece queen = new ChessPiece(ChessPieceType.Queen, move.MovingPiece.Color);
+                chessBoard.PutPiece(queen, move.From);
+                move.MovingPiece = queen;
             }
         }
     }

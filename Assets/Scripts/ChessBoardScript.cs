@@ -79,6 +79,16 @@ public class ChessBoardScript : MonoBehaviour {
     }
 
     /// <summary>
+    /// найти фигуру по позиции
+    /// </summary>
+    /// <param name="coord">позиция</param>
+    /// <returns></returns>
+    private ChessPieceScript FindChessPiece(BoardCoord coord)
+    {
+        return PieceContainer.GetComponentsInChildren<ChessPieceScript>().FirstOrDefault(x => x.Coordiantes == coord);
+    }
+
+    /// <summary>
     /// Преобразовать позицию на доске в позицию на экране
     /// </summary>
     /// <param name="coord">позиция на доске</param>
@@ -152,6 +162,14 @@ public class ChessBoardScript : MonoBehaviour {
             return;
 
         ChessPieceScript pieceScript = FindChessPiece(currentMove.MovingPiece);
+        if (!pieceScript)
+        {
+            Vector3 position = BoardCoordToTransformPosition(currentMove.From);
+            pieceScript = UIBuilder.CreateChessPiece(PieceContainer, position, CurrentCellSize, currentMove.From, currentMove.MovingPiece, OnChessPieceClickHandler);
+            pieceScript.gameObject.AddClickEventTrigger(OnChessPieceClickHandler);
+            Destroy(FindChessPiece(currentMove.From).gameObject);
+        }
+
         ChessPieceScript defeatedScript = FindChessPiece(currentMove.DefeatedPiece);
 
         /// скрыть захваченную фигуру
