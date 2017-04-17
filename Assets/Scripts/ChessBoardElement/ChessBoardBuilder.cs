@@ -16,12 +16,15 @@ namespace Assets.Scripts.ChessBoardElement
             ChessBoard board = new ChessBoard();
             PlayerColor otherPlayerColor = startPlayerColor == PlayerColor.White ? PlayerColor.Black : PlayerColor.White;
 
+            int kingPos = startPlayerColor == PlayerColor.White ? 4 : 3;
+            int queenPos = startPlayerColor == PlayerColor.White ? kingPos - 1 : kingPos + 1;
+
             /// start player pieces
             board.PutPiece(new ChessPiece(ChessPieceType.Rook, startPlayerColor), 0, 0);
             board.PutPiece(new ChessPiece(ChessPieceType.Knight, startPlayerColor), 0, 1);
             board.PutPiece(new ChessPiece(ChessPieceType.Bishop, startPlayerColor), 0, 2);
-            board.PutPiece(new ChessPiece(ChessPieceType.King, startPlayerColor), 0, 3);
-            board.PutPiece(new ChessPiece(ChessPieceType.Queen, startPlayerColor), 0, 4);
+            board.PutPiece(new ChessPiece(ChessPieceType.King, startPlayerColor), 0, (sbyte)kingPos);
+            board.PutPiece(new ChessPiece(ChessPieceType.Queen, startPlayerColor), 0, (sbyte)queenPos);
             board.PutPiece(new ChessPiece(ChessPieceType.Bishop, startPlayerColor), 0, 5);
             board.PutPiece(new ChessPiece(ChessPieceType.Knight, startPlayerColor), 0, 6);
             board.PutPiece(new ChessPiece(ChessPieceType.Rook, startPlayerColor), 0, 7);
@@ -38,8 +41,8 @@ namespace Assets.Scripts.ChessBoardElement
             board.PutPiece(new ChessPiece(ChessPieceType.Rook, otherPlayerColor), 7, 0);
             board.PutPiece(new ChessPiece(ChessPieceType.Knight, otherPlayerColor), 7, 1);
             board.PutPiece(new ChessPiece(ChessPieceType.Bishop, otherPlayerColor), 7, 2);
-            board.PutPiece(new ChessPiece(ChessPieceType.King, otherPlayerColor), 7, 3);
-            board.PutPiece(new ChessPiece(ChessPieceType.Queen, otherPlayerColor), 7, 4);
+            board.PutPiece(new ChessPiece(ChessPieceType.King, otherPlayerColor), 7, (sbyte)kingPos);
+            board.PutPiece(new ChessPiece(ChessPieceType.Queen, otherPlayerColor), 7, (sbyte)queenPos);
             board.PutPiece(new ChessPiece(ChessPieceType.Bishop, otherPlayerColor), 7, 5);
             board.PutPiece(new ChessPiece(ChessPieceType.Knight, otherPlayerColor), 7, 6);
             board.PutPiece(new ChessPiece(ChessPieceType.Rook, otherPlayerColor), 7, 7);
