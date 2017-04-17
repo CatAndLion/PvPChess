@@ -33,6 +33,8 @@ public class ChessBoardScript : MonoBehaviour {
 
     private bool CanSelect = true;
 
+    private Vector2 currentSize;
+
     /// <summary>
     /// Текущий размер ячейки
     /// </summary>
@@ -44,6 +46,11 @@ public class ChessBoardScript : MonoBehaviour {
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+    }
+
+    private void Start()
+    {
+        Highlight.SetVisibility(false);
     }
 
     /// <summary>
