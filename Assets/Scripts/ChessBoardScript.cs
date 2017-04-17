@@ -206,10 +206,11 @@ public class ChessBoardScript : MonoBehaviour {
         CanSelect = false;
         piece.transform.SetAsLastSibling();
         float t = 0;
-        while (t <= 1)
+        while (t < 1)
         {
-            piece.transform.position = Vector3.Lerp(from, to, t);
             t += Time.deltaTime * MovementSpeed;
+            t = Mathf.Clamp01(t);
+            piece.transform.position = Vector3.Lerp(from, to, t);
             yield return null;
         }
 
